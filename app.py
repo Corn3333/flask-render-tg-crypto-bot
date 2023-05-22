@@ -17,7 +17,7 @@ def hello():
 @app.route('/notify', methods=['POST','GET'])
 def notify():
   logs = request.json
-  bot.send_message(chat_id=user_chat_id, text=message, parse_mode='MarkdownV2')
+  bot.send_message(chat_id=user_chat_id, text=logs, parse_mode='MarkdownV2')
   return Response(status=200)
   if (len(logs) == 0):
     print("Empty logs array received, skipping")
