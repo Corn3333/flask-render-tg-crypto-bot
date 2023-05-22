@@ -1,3 +1,2 @@
 Flask
 Gunicorn
-python-telegram-bot==13.13
