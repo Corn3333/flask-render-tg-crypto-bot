@@ -18,8 +18,21 @@ def hello():
 @app.route('/notify', methods=['POST','GET'])
 def notify():
     logs = request.json
+    network = logs['event']['network']
+    from_address = logs['event']['activity'][0]['fromAddress']
+    to_address = logs['event']['activity'][0]['toAddress']
+    value = logs['event']['activity'][0]['value']
+    assets = logs['event']['activity'][0]['asset']
+    category = logs['event']['activity'][0]['external']
+    tx_hash = logs['event']['activity'][0]['hash']
     
-    message = logs
+    message = f'''{network}
+    from: {from_address}
+    to: {to_address}
+    sent: {value} {assets}
+    category: {category}
+    hash: {tx_hash}
+    '''
     url = f"https://api.telegram.org/bot{TELEGRAM_API_TOKEN}/sendMessage?chat_id={user_chat_id}&text={message}"
     requests.get(url, stream=True)
     return Response(status=200)
