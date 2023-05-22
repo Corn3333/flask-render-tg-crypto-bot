@@ -24,6 +24,7 @@ def notify():
     value = logs['event']['activity'][0]['value']
     assets = logs['event']['activity'][0]['asset']
 #     category = logs['event']['activity'][0]['external']
+    category = ""
     tx_hash = logs['event']['activity'][0]['hash']
     
     message = f'''{network}
