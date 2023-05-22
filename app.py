@@ -23,7 +23,7 @@ def notify():
     to_address = logs['event']['activity'][0]['toAddress']
     value = logs['event']['activity'][0]['value']
     assets = logs['event']['activity'][0]['asset']
-    category = logs['event']['activity'][0]['external']
+#     category = logs['event']['activity'][0]['external']
     tx_hash = logs['event']['activity'][0]['hash']
     
     message = f'''{network}
