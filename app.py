@@ -32,14 +32,7 @@ def notify():
         if res: message += variables[i] + res
             
     
-    
-    # message = f'''{network}
-    # from: {from_address}
-    # to: {to_address}
-    # sent: {value} {assets}
-    # category: {category}
-    # hash: {tx_hash}
-    # '''
+
     url = f"https://api.telegram.org/bot{TELEGRAM_API_TOKEN}/sendMessage?chat_id={user_chat_id}&text={message}"
     requests.get(url, stream=True)
     return Response(status=200)
