@@ -26,14 +26,14 @@ def notify():
     # category = logs['event']['activity'][0]['external']
     # tx_hash = logs['event']['activity'][0]['hash']
     
-    message = logs['event']['network']
+    message = f"<b>{logs['event']['network']}</b>"
     for i in variables:
         res = logs['event']['activity'][0].get(i)
-        if res: message += variables[i] + res
+        if res: message += variables[i] + str(res)
             
     
 
-    url = f"https://api.telegram.org/bot{TELEGRAM_API_TOKEN}/sendMessage?chat_id={user_chat_id}&text={message}"
+    url = f"https://api.telegram.org/bot{TELEGRAM_API_TOKEN}/sendMessage?chat_id={user_chat_id}&parse_mode=HTML&text={message}"
     requests.get(url, stream=True)
     return Response(status=200)
   
