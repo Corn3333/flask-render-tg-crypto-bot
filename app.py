@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Set up Telegram bot API
 TELEGRAM_API_TOKEN = os.environ['BOT_TOKEN']
-variables = {'fromAddress' : '\nfrom: ', 'toAddress' : '\nto: ', 'value' : '\nsent: ', 'asset' : '', 'external' : '\ncategory: ', 'hash': '\nhash: '}
+variables = {'fromAddress' : '\nfrom: ', 'toAddress' : '\nto: ', 'value' : '\nsent: ', 'asset' : ' ', 'external' : '\ncategory: ', 'hash': '\nhash: '}
 user_chat_id = os.environ['CHANNEL_ID']
 
 @app.route('/')
@@ -18,18 +18,13 @@ def hello():
 @app.route('/notify', methods=['POST','GET'])
 def notify():
     logs = request.json
-    # network = logs['event']['network']
-    # from_address = logs['event']['activity'][0]['fromAddress']
-    # to_address = logs['event']['activity'][0]['toAddress']
-    # value = logs['event']['activity'][0]['value']
-    # assets = logs['event']['activity'][0]['asset']
-    # category = logs['event']['activity'][0]['external']
-    # tx_hash = logs['event']['activity'][0]['hash']
     
-    message = f"<b>{logs['event']['network']}</b>"
+    message = ""
+    k = logs['event'].get('network')
+    if k: message += f"<b>{k}</b>"
     for i in variables:
         res = logs['event']['activity'][0].get(i)
-        if res: message += variables[i] + str(res)
+        if res: message += f"<b>{variables[i]}</b>" + f"<code>{str(res)}</code>"
             
     
 
