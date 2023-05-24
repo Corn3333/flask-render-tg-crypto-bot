@@ -10,6 +10,7 @@ app = Flask(__name__)
 TELEGRAM_API_TOKEN = os.environ['BOT_TOKEN']
 variables = {'fromAddress' : '\nfrom: ', 'toAddress' : '\nto: ', 'value' : '\nsent: ', 'asset' : ' ', 'external' : '\ncategory: ', 'hash': '\nhash: '}
 user_chat_id = os.environ['CHANNEL_ID']
+user_id = os.environ['USER_ID']
 
 @app.route('/')
 def hello():
@@ -25,11 +26,15 @@ def notify():
     for i in variables:
         res = logs['event']['activity'][0].get(i)
         if res: message += f"<b>{variables[i]}</b>" + f"<code>{str(res)}</code>"
-            
     
+
 
     url = f"https://api.telegram.org/bot{TELEGRAM_API_TOKEN}/sendMessage?chat_id={user_chat_id}&parse_mode=HTML&text={message}"
     requests.get(url, stream=True)
+    
+    debug = "https://api.telegram.org/bot{TELEGRAM_API_TOKEN}/sendMessage?chat_id={user_id}&text={logs}"       
+    requests.get(debug, stream=True)
+    
     return Response(status=200)
   
   
