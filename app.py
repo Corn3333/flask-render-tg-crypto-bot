@@ -35,8 +35,8 @@ def notify():
     message = ""
     k = logs['event'].get('network')
 
-    from_name = NAMES.get(logs['event']['activity'][0].get('fromAddress'))
-    to_name = NAMES.get(logs['event']['activity'][0].get('toAddress'))
+    from_name = NAMES.get(logs['event']['activity'][0].get('fromAddress').lower())
+    to_name = NAMES.get(logs['event']['activity'][0].get('toAddress').lower())
     if from_name:
         wallet_name = f"<code>{from_name}</code>"
     elif to_name:
