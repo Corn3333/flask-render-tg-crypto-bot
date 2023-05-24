@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Set up Telegram bot API
 TELEGRAM_API_TOKEN = os.environ['BOT_TOKEN']
-variables = {'fromAddress' : '\nfrom:', 'toAddress' : '\nto:', 'value' : '\nsent: ', 'asset' : ' ', 'hash': '\nhash: '}
+variables = {'fromAddress' : '\nfrom:', 'toAddress' : ' to:', 'value' : '\nsent: ', 'asset' : ' ', 'hash': '\nhash: '}
 user_chat_id = os.environ['CHANNEL_ID']
 NETWORK = {
     "ARB_MAINNET" : {"name" : "ARBITRUM", "url_address" : "https://arbiscan.io/address/", "url_hash" : "https://arbiscan.io/tx/"}, 
@@ -29,7 +29,7 @@ def notify():
     for i in variables:
         res = logs['event']['activity'][0].get(i)
         if res and (i == "fromAddress" or i == "toAddress"): 
-            message += f"<i>{variables[i]}</i> <a href='{NETWORK[k]['url_address'] + str(res)}'>{str(res)[:6]}</a>"
+            message += f"<i>{variables[i]}</i> <a href='{NETWORK[k]['url_address'] + str(res)}'>{str(res)[:6]}..{str(res)[-4:]}</a>"
         elif res and i == "hash":
             message += f"\n<a href='{NETWORK[k]['url_hash'] + str(res)}'>Tx hash</a>"
         elif res:
